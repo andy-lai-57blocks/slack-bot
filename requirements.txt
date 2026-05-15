@@ -1,0 +1,27 @@
+# Slack
+slack-sdk
+slack-bolt
+
+# LangChain
+langchain
+langchain-community
+langchain-core
+langchain-huggingface
+langchain-text-splitters
+
+# PDF processing
+pypdf
+pymupdf
+
+# Vector store & embeddings
+faiss-cpu
+sentence-transformers
+
+# Web server
+flask
+gunicorn
+
+# Utilities
+python-dotenv
+requests
+
