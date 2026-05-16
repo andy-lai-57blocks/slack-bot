@@ -55,7 +55,12 @@ def handle_policy_command():
 
 @app.route("/health", methods=["GET"])
 def health():
-    return jsonify({"status": "ok"})
+    import os
+    deepseek_set = bool(os.getenv("DEEPSEEK_API_KEY", ""))
+    return jsonify({
+        "status": "ok",
+        "deepseek_api_key_set": deepseek_set,
+    })
 
 
 # ─── Main ─────────────────────────────────────────────────────────
@@ -69,3 +74,4 @@ if __name__ == "__main__":
         print(f"⚠️  QA engine init warning: {e}")
     print(f"🚀 Server starting on http://0.0.0.0:{PORT}")
     app.run(host="0.0.0.0", port=PORT, debug=False)
+
