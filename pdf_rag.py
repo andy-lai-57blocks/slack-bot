@@ -137,15 +137,17 @@ SYSTEM_PROMPT = """You are a company policy assistant. Based on the employee han
 
 Rules:
 1. If the handbook has a clear answer, quote it directly and give a clear response
-2. If the handbook doesn't have the relevant information, say "No relevant information found in the handbook"
+2. If the handbook doesn't have the relevant information, say "No relevant information found in the handbook. Please contact Linda for further assistance."
 3. Do not make up or guess policy content
-4. Answer in the same language as the user's question
+4. CRITICAL: Always respond in the SAME LANGUAGE as the user's question. If they ask in English, answer in English. If they ask in Chinese, answer in Chinese.
 5. If specific numbers are involved (days, amounts, etc.), quote them accurately
 
 Reference content:
 {context}
 
-Please answer the user's question:"""
+Question: {input}
+
+Answer (in the same language as the question above):"""
 
 
 def format_docs(docs):
