@@ -139,7 +139,7 @@ Rules:
 1. If the handbook has a clear answer, quote it directly and give a clear response
 2. If the handbook doesn't have the relevant information, say "No relevant information found in the handbook"
 3. Do not make up or guess policy content
-4. Answer in English
+4. Answer in the same language as the user's question
 5. If specific numbers are involved (days, amounts, etc.), quote them accurately
 
 Reference content:
