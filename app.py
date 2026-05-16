@@ -60,7 +60,7 @@ def handle_policy_command():
     if not user_query:
         return jsonify({
             "response_type": "ephemeral",
-            "text": "请提供问题，例如：`/policy 年假怎么休？`",
+            "text": "Please provide a question, e.g. `/policy How many annual leave days do I have?`",
         })
 
     print(f"💬 /policy from @{user_name}: {user_query}")
@@ -75,7 +75,7 @@ def handle_policy_command():
 
     return jsonify({
         "response_type": "ephemeral",
-        "text": f"⏳ 正在查询「{user_query}」… 请稍候",
+        "text": f"⏳ Looking up policy for \"{user_query}\"… please wait",
     })
 
 
@@ -87,9 +87,9 @@ def process_and_respond(user_query: str, channel_id: str, response_url: str):
         print(f"✅ Answer: {answer[:100]}...")
     except Exception as e:
         print(f"❌ Error: {e}")
-        answer = f"抱歉，处理您的问题时出现错误：{str(e)}"
+        answer = f"Sorry, an error occurred while processing your question: {str(e)}"
 
-    slack_text = f"*📋 关于「{user_query}」*\n\n{answer}"
+    slack_text = f"*📋 Policy: \"{user_query}\"*\n\n{answer}"
 
     # Try response_url first (Slack's 3-second hook), fallback to chat.postMessage
     if response_url:

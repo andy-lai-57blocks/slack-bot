@@ -76,11 +76,11 @@ def make_mock_llm():
         else:
             text = str(prompt_input)
         lines = text.split("\n")
-        question_line = [l for l in lines if "用户的问题" in l]
-        question = question_line[0].split("：", 1)[-1].strip() if question_line else "unknown"
+        question_line = [l for l in lines if "question" in l.lower()]
+        question = question_line[0].split(":", 1)[-1].strip() if question_line else "unknown"
         return (
-            f"[Mock Answer] 关于「{question}」的测试回复。\n\n"
-            f"请设置 DEEPSEEK_API_KEY 环境变量来获取真实回答。"
+            f"[Mock Answer] Regarding \"{question}\" — this is a test response.\n\n"
+            f"Please set the DEEPSEEK_API_KEY environment variable for real answers."
         )
     return RunnableLambda(mock_func)
 
@@ -133,19 +133,19 @@ def get_or_create_vectorstore() -> FAISS:
 
 # ─── QA Chain ─────────────────────────────────────────────────────
 
-SYSTEM_PROMPT = """你是公司政策助手。请根据以下提供的员工手册内容，准确回答用户的问题。
+SYSTEM_PROMPT = """You are a company policy assistant. Based on the employee handbook content provided below, accurately answer the user's questions.
 
-规则：
-1. 如果手册中有明确答案，请直接引用并给出清晰回答
-2. 如果手册中没有相关信息，请如实说"手册中没有找到相关信息"
-3. 不要编造或猜测政策内容
-4. 用中文回答
-5. 如果涉及具体数字（天数、金额等），务必准确引用
+Rules:
+1. If the handbook has a clear answer, quote it directly and give a clear response
+2. If the handbook doesn't have the relevant information, say "No relevant information found in the handbook"
+3. Do not make up or guess policy content
+4. Answer in English
+5. If specific numbers are involved (days, amounts, etc.), quote them accurately
 
-参考内容：
+Reference content:
 {context}
 
-请回答用户的问题："""
+Please answer the user's question:"""
 
 
 def format_docs(docs):
@@ -198,7 +198,7 @@ def get_qa_chain():
 # ─── Main (for testing) ───────────────────────────────────────────
 
 if __name__ == "__main__":
-    query = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else "年假怎么休？"
+    query = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else "How many annual leave days do I have?"
     print(f"\n❓ Question: {query}\n")
     chain = get_qa_chain()
     answer = chain.invoke(query)
